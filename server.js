@@ -9,6 +9,29 @@ const session = require('express-session');
 
 const app = express();
 
+// configure passport provider options
+passport.use(new GoogleStrategy({
+  clientID: '',
+  clientSecret: '',
+  callbackURL: 'http://localhost:8000/auth/callback',
+}, (accessToken, refreshToken, profile, done) => {
+done(null, profile);
+}));
+
+// serialize user when saving to session
+passport.serializeUser((user, serialize) => {
+  serialize(null, user);
+});
+
+// deserialize user when reading from session
+passport.deserializeUser((obj, deserialize) => {
+  deserialize(null, obj);
+});
+
+app.use(session({ secret: 'egosum' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.engine('hbs', hbs({ extname: 'hbs', layoutsDir: './layouts', defaultLayout: 'main' }));
 app.set('view engine', '.hbs');
 
