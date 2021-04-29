@@ -3,6 +3,10 @@ const cors = require('cors');
 const path = require('path');
 const hbs = require('express-handlebars');
 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
+
 const app = express();
 
 app.engine('hbs', hbs({ extname: 'hbs', layoutsDir: './layouts', defaultLayout: 'main' }));
