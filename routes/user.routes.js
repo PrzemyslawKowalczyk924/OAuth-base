@@ -25,5 +25,4 @@ router.get('/no-permission', (req, res) => {
   res.render('noPermission');
 });
 
-
 module.exports = router;
